@@ -49,17 +49,17 @@ export class HeroService {
     );
   }
 
-  updateHero(hero: Hero): Observable<any> {
-    return this.httpClient.put(this.heroesUrl, hero, httpoptions).pipe(
-      tap(_ => this.log(`updated hero od=${hero.id}`)),
-      catchError(this.handleError<any>('updateHero'))
-    );
-  }
-
   addHero(hero: Hero): Observable<Hero> {
     return this.httpClient.post<Hero>(this.heroesUrl, hero, httpoptions).pipe(
       tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
       catchError(this.handleError<Hero>('addHero'))
+    );
+  }
+
+  updateHero(hero: Hero): Observable<any> {
+    return this.httpClient.put(this.heroesUrl, hero, httpoptions).pipe(
+      tap(_ => this.log(`updated hero od=${hero.id}`)),
+      catchError(this.handleError<any>('updateHero'))
     );
   }
 
@@ -74,7 +74,7 @@ export class HeroService {
   }
 
   searchHero(term: string): Observable<Hero[]> {
-    if(!term.trim()){
+    if (!term.trim()) {
       return of([]);
     }
 
